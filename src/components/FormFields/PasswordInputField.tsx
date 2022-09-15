@@ -8,6 +8,7 @@ export interface PasswordInputFieldProps extends InputProps {
   handleOnChange?: any;
   formGroupClassName?: string;
   errorClassName?: string;
+  visibilityToggle?: boolean;
 }
 
 export const PasswordInputField: React.FunctionComponent<PasswordInputFieldProps> = ({
@@ -16,6 +17,7 @@ export const PasswordInputField: React.FunctionComponent<PasswordInputFieldProps
   handleOnChange,
   formGroupClassName,
   errorClassName,
+  visibilityToggle = true,
   ...otherProps
 }) => {
   const {
@@ -37,6 +39,7 @@ export const PasswordInputField: React.FunctionComponent<PasswordInputFieldProps
           onChange(event);
         }}
         onBlur={onBlur}
+        visibilityToggle={visibilityToggle}
         {...otherProps}
       />
       {errors?.[name] && (

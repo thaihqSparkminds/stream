@@ -1,0 +1,170 @@
+.form__container {
+  width: 300px;
+  margin: 0 auto;
+  text-align: center;
+  background-color: white;
+  border-radius: 8px;
+
+  .form__title {
+    margin: 0;
+    margin-bottom: 20px;
+    font-size: 32px;
+    line-height: 1.37;
+    font-weight: 800;
+  }
+
+  .form__social-options {
+    display: flex;
+    gap: 16px;
+    flex-direction: column;
+
+    .form__social-option {
+      background-color: white;
+      color: black;
+      padding: 10px;
+      text-align: center;
+      cursor: pointer;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+  }
+  .form__divider {
+    color: #888;
+  }
+  .signup-form,
+  .login-form {
+    .form__form-group {
+      margin-bottom: 10px;
+      .form__form-group-field {
+        input {
+          padding: 14px 15px;
+          font-size: 16px;
+          border-radius: 6px;
+          border: 1px solid #888;
+        }
+      }
+    }
+    .btn-primary {
+      width: 100%;
+      height: 48px;
+      border-radius: 6px;
+      border: none;
+      background-color: #286fff;
+      color: white;
+      font-weight: 700;
+      font-size: 16px;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+  }
+  .form__nav-links {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 24px;
+    .form__nav-link {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.login-page {
+  display: flex;
+  justify-content: space-between;
+  height: 100vh;
+
+  .login__left-side {
+    padding: 40px;
+    min-width: 480px;
+
+    .form__container {
+      .login__logo-container {
+        margin-bottom: 32px;
+        cursor: pointer;
+        svg {
+          width: 60px;
+          height: 60px;
+        }
+      }
+    }
+  }
+  .login__right-side {
+    background-color: #091e42;
+    flex-grow: 1;
+    padding: 40px 110px;
+
+    .login__banner-header {
+      font-weight: 700;
+      font-size: 60px;
+      line-height: 68px;
+      color: #fff;
+      margin-top: 50px;
+      margin-bottom: 120px;
+    }
+
+    .login__banner-option-container {
+      display: flex;
+      gap: 80px;
+      .login__banner-option {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        .login-banner__thumnail {
+          height: 46px;
+          img {
+            height: 100%;
+          }
+        }
+        .login-banner__title {
+          font-weight: 700;
+          font-size: 26px;
+          line-height: 36px;
+          color: #28beff;
+        }
+        .login-banner__subtitle {
+          font-weight: 400;
+          font-size: 16px;
+          line-height: 26px;
+          color: white;
+        }
+      }
+    }
+  }
+}
+
+.signup-page {
+  text-align: center;
+  padding: 40px 20px;
+
+  .signup__header {
+    text-align: center;
+    color: white;
+    font-weight: 700;
+    margin-top: 0;
+    cursor: pointer;
+  }
+
+  .form__container {
+    width: 380px;
+    padding: 36px 40px;
+
+    .form__title {
+      font-size: 30px;
+    }
+
+    .form__nav-links {
+      justify-content: center;
+
+      .form__nav-link {
+        font-size: 16px;
+        line-height: 1.25;
+        color: black;
+      }
+    }
+  }
+
+  .signup__confirm-text {
+    width: 380px;
+    margin: 32px auto 0;
+    color: hsla(0, 0%, 100%, 0.54);
+  }
+}

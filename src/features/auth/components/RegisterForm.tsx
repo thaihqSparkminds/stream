@@ -1,14 +1,14 @@
 import { InputField, PasswordInputField } from 'components/FormFields';
-import { LoginInformation } from 'models';
+import { SignupInformation } from 'models/authentication/signupInformation';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
-export interface LoginFormProps {
-  initialValue: LoginInformation;
-  onSubmit: (formValues: LoginInformation) => void;
+export interface RegisterFormProps {
+  initialValue: SignupInformation;
+  onSubmit: (formValues: SignupInformation) => void;
 }
 
-export default function LoginForm({ initialValue, onSubmit }: LoginFormProps) {
+export default function RegisterForm({ initialValue, onSubmit }: RegisterFormProps) {
   const { t } = useTranslation();
 
   const { control, handleSubmit } = useForm({
@@ -18,7 +18,7 @@ export default function LoginForm({ initialValue, onSubmit }: LoginFormProps) {
   return (
     <>
       <div>
-        <form className="form login-form" onSubmit={handleSubmit(onSubmit)}>
+        <form className="form signup-form" onSubmit={handleSubmit(onSubmit)}>
           <div className="form__form-group">
             <div className="form__form-group-field">
               <InputField name="email" control={control} placeholder="Email" />
@@ -35,7 +35,7 @@ export default function LoginForm({ initialValue, onSubmit }: LoginFormProps) {
             </div>
           </div>
           <button className="btn btn-primary" type="submit">
-            Log In
+            Sign Up
           </button>
         </form>
       </div>

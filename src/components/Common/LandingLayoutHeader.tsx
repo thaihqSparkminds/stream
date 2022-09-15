@@ -13,7 +13,9 @@ export const LandingLayoutHeader: React.FunctionComponent<LandingLayoutHeaderPro
     <>
       <div className="landing-header">
         <div className="landing-header__left-side">
-          <MainLogo />
+          <div className="landing-header__logo-container" onClick={() => navigate('')}>
+            <MainLogo />
+          </div>
           <ul className="landing-header__nav-links">
             <li>
               <Link style={{ color: 'white' }} to={'/product'}>
