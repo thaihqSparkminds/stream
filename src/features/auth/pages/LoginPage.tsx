@@ -8,6 +8,8 @@ import download from 'assets/images/login_download.png';
 import live from 'assets/images/login_live.png';
 import event from 'assets/images/login_event.png';
 import { SignupInformation } from 'models/authentication/signupInformation';
+import googleIcon from 'assets/images/google_icon.png';
+import facebookIcon from 'assets/images/facebook_icon.png';
 
 interface LoginPageProps {}
 
@@ -33,8 +35,14 @@ const LoginPage: React.FunctionComponent<LoginPageProps> = (props) => {
             </div>
             <h1 className="form__title">Welcome back</h1>
             <div className="form__social-options">
-              <button className="form__social-option">Continue with Google</button>
-              <button className="form__social-option">Continue with Facebook</button>
+              <button className="form__social-option">
+                <img src={googleIcon} alt="" />
+                <span>Continue with Google</span>
+              </button>
+              <button className="form__social-option">
+                <img src={facebookIcon} alt="" />
+                <span>Continue with Facebook</span>
+              </button>
             </div>
             <Divider className="form__divider">OR</Divider>
             <LoginForm initialValue={initialValue} onSubmit={onSubmit} />

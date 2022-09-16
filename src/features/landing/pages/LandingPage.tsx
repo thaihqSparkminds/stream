@@ -3,6 +3,8 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import landingLogo from 'assets/images/landing_logo.png';
 import { Link } from 'react-router-dom';
+import googleIcon from 'assets/images/google_icon.png';
+import facebookIcon from 'assets/images/facebook_icon.png';
 
 interface LandingPageProps {}
 
@@ -18,8 +20,14 @@ const LandingPage: React.FunctionComponent<LandingPageProps> = (props) => {
           <h1 className="landing__title">One live stream. 30+ destinations.</h1>
           <p className="landing__desc">Multistream & reach your audience, wherever they are.</p>
           <div className="landing__login-option-container">
-            <div className="landing__login-option">Continue with Google</div>
-            <div className="landing__login-option">Continue with Facebook</div>
+            <div className="landing__login-option">
+              <img className="landing__option-icon" src={googleIcon} alt="" />
+              <span>Continue with Google</span>
+            </div>
+            <div className="landing__login-option">
+              <img className="landing__option-icon" src={facebookIcon} alt="" />
+              <span>Continue with Facebook</span>
+            </div>
           </div>
 
           <span>Or sign up with email:</span>

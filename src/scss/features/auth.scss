@@ -22,10 +22,20 @@
       background-color: white;
       color: black;
       padding: 10px;
-      text-align: center;
       cursor: pointer;
       border-radius: 6px;
       border: 1px solid #ccc;
+      display: flex;
+      align-items: center;
+
+      span {
+        flex: 1 1;
+      }
+
+      img {
+        width: 18px;
+        height: 18px;
+      }
     }
   }
   .form__divider {
@@ -75,8 +85,11 @@
   .login__left-side {
     padding: 40px;
     min-width: 480px;
+    display: flex;
+    align-items: center;
 
     .form__container {
+      padding-bottom: 157px;
       .login__logo-container {
         margin-bottom: 32px;
         cursor: pointer;
@@ -87,10 +100,14 @@
       }
     }
   }
+
   .login__right-side {
     background-color: #091e42;
     flex-grow: 1;
     padding: 40px 110px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 
     .login__banner-header {
       font-weight: 700;
@@ -132,39 +149,45 @@
 }
 
 .signup-page {
-  text-align: center;
   padding: 40px 20px;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 
-  .signup__header {
-    text-align: center;
-    color: white;
-    font-weight: 700;
-    margin-top: 0;
-    cursor: pointer;
-  }
-
-  .form__container {
-    width: 380px;
-    padding: 36px 40px;
-
-    .form__title {
-      font-size: 30px;
+  .signup-container {
+    .signup__header {
+      text-align: center;
+      color: white;
+      font-weight: 700;
+      margin-top: 0;
+      cursor: pointer;
     }
 
-    .form__nav-links {
-      justify-content: center;
+    .form__container {
+      width: 380px;
+      padding: 36px 40px;
 
-      .form__nav-link {
-        font-size: 16px;
-        line-height: 1.25;
-        color: black;
+      .form__title {
+        font-size: 30px;
+      }
+
+      .form__nav-links {
+        justify-content: center;
+
+        .form__nav-link {
+          font-size: 16px;
+          line-height: 1.25;
+          color: black;
+        }
       }
     }
-  }
 
-  .signup__confirm-text {
-    width: 380px;
-    margin: 32px auto 0;
-    color: hsla(0, 0%, 100%, 0.54);
+    .signup__confirm-text {
+      width: 380px;
+      margin: 32px auto 0;
+      color: hsla(0, 0%, 100%, 0.54);
+    }
   }
 }

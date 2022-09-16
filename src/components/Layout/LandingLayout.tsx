@@ -4,7 +4,7 @@ import { Outlet, RouteProps } from 'react-router-dom';
 
 export const LandingLayout: React.FunctionComponent<RouteProps> = (props) => {
   return (
-    <div>
+    <div className="landing-container">
       <div>
         <LandingLayoutHeader />
       </div>

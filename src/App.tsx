@@ -2,6 +2,7 @@ import { LandingLayout, ProductLayout } from 'components/Layout';
 import ForgotPasswordPage from 'features/auth/pages/ForgotPasswordPage';
 import LoginPage from 'features/auth/pages/LoginPage';
 import RegisterPage from 'features/auth/pages/RegisterPage';
+import EventPage from 'features/event/EventPage';
 import HomePage from 'features/home/pages/HomePage';
 import InmailPage from 'features/inmail/pages/InmailPage';
 import LandingPage from 'features/landing/pages/LandingPage';
@@ -29,6 +30,7 @@ const App: React.FunctionComponent<AppProps> = (props) => {
           <Route path="home" element={<HomePage />} />
           <Route path="setting" element={<SettingPage />} />
           <Route path="inmail" element={<InmailPage />} />
+          <Route path="event" element={<EventPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Route>
 
