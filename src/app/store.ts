@@ -1,7 +1,5 @@
 import { Action, configureStore, ThunkAction } from '@reduxjs/toolkit';
 import authReducer from 'features/auth/authSlice';
-import homeReducer from 'features/home/homeSlice';
-import inmailReducer from 'features/inmail/inmailSlice';
 import landingReducer from 'features/landing/landingSlice';
 import staticReducer from 'features/static/staticSlice';
 
@@ -9,8 +7,6 @@ export const store = configureStore({
   reducer: {
     landing: landingReducer,
     auth: authReducer,
-    home: homeReducer,
-    inmail: inmailReducer,
     static: staticReducer,
   },
 });

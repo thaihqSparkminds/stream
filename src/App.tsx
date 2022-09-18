@@ -3,10 +3,7 @@ import ForgotPasswordPage from 'features/auth/pages/ForgotPasswordPage';
 import LoginPage from 'features/auth/pages/LoginPage';
 import RegisterPage from 'features/auth/pages/RegisterPage';
 import EventPage from 'features/event/EventPage';
-import HomePage from 'features/home/pages/HomePage';
-import InmailPage from 'features/inmail/pages/InmailPage';
 import LandingPage from 'features/landing/pages/LandingPage';
-import SettingPage from 'features/setting/pages/SettingPage';
 import NotFoundPage from 'features/static/pages/NotFoundPage';
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
@@ -27,9 +24,6 @@ const App: React.FunctionComponent<AppProps> = (props) => {
         <Route path="login" element={<LoginPage />} />
 
         <Route path="/my/*" element={<ProductLayout />}>
-          <Route path="home" element={<HomePage />} />
-          <Route path="setting" element={<SettingPage />} />
-          <Route path="inmail" element={<InmailPage />} />
           <Route path="event" element={<EventPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Route>

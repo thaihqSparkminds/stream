@@ -1,7 +1,6 @@
 .landing-container {
   display: flex;
   flex-direction: column;
-  height: 100vh;
   justify-content: space-between;
   background-color: black;
 }
@@ -167,6 +166,7 @@
   margin: 0 auto;
   padding: 23px 27px;
   align-items: center;
+  background-color: black;
 
   .landing-footer__copyright {
     color: #929292;
