@@ -23,9 +23,6 @@ export const ProductLayoutNavSide: React.FunctionComponent<ProductLayoutNavSideP
   const toggleSiderCollapse = () => {
     setCollapsed(!collapsed);
   };
-  const checkActive = (value: string) => {
-    return location.pathname.split('/').includes(value);
-  };
 
   return (
     <>

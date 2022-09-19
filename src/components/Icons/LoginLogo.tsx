@@ -18,9 +18,9 @@ const LoginLogo: React.FunctionComponent<LoginLogoProps> = (props) => {
         />
         <path
           fill="#fff"
-          fill-rule="evenodd"
+          fillRule="evenodd"
           d="M233.04 384H160V128h100.251c66.954 0 104.191 27.211 104.191 81.275v1.432c0 36.52-19.335 56.93-46.188 67.312L379.48 384h-77.338l-51.915-91.659H233.04V384zm0-200.861v61.583h23.632c24.704 0 36.878-10.383 36.878-31.149v-1.434c0-20.766-12.889-29-36.521-29H233.04z"
-          clip-rule="evenodd"
+          clipRule="evenodd"
         />
       </svg>
     </span>
