@@ -14,7 +14,7 @@ interface ProductLayoutNavSideProps {}
 
 export const ProductLayoutNavSide: React.FunctionComponent<ProductLayoutNavSideProps> = (props) => {
   const { t } = useTranslation();
-  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed, setCollapsed] = useState(true);
   const navigate = useNavigate();
   const location = useLocation();
   const currentPath = () => {
