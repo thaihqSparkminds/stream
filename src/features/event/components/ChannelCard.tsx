@@ -1,5 +1,7 @@
 import { Switch } from 'antd';
-import React, { useRef } from 'react';
+import { useAppSelector } from 'app/hooks';
+import React, { useRef, useState, useEffect } from 'react';
+import { selectActiveAll } from '../eventSlice';
 
 interface ChannelCardProps {
   avatar: string;
@@ -19,15 +21,28 @@ const ChannelCard: React.FunctionComponent<ChannelCardProps> = ({
   handleSwitch,
 }) => {
   const itemRef = useRef<any>();
-
+  const ActiveAllState = useAppSelector(selectActiveAll);
+  const [ischecked, setIsChecked] = useState(false);
   const localHandleSwitch = (checked: boolean, event: Event) => {
     if (handleSwitch) handleSwitch();
     if (!checked) {
       itemRef.current.classList.add('event__item--disable');
     } else itemRef.current.classList.remove('event__item--disable');
+    setIsChecked(!ischecked);
   };
+
+  useEffect(() => {
+    if (ActiveAllState) {
+      setIsChecked(true);
+      itemRef.current.classList.remove('event__item--disable');
+    } else {
+      setIsChecked(false);
+      itemRef.current.classList.add('event__item--disable');
+    }
+  }, [ActiveAllState]);
+
   return (
-    <div className="event__item" ref={itemRef}>
+    <div className="event__item event__item--disable" ref={itemRef}>
       <div className="event-item__left-side">
         <div className="event-item__logo-box">
           <img src={avatar} alt="" />
@@ -43,7 +58,7 @@ const ChannelCard: React.FunctionComponent<ChannelCardProps> = ({
       </div>
       <div className="event-item__right-side">
         <span>Edit</span>
-        <Switch defaultChecked onChange={localHandleSwitch} />
+        <Switch checked={ischecked} onClick={localHandleSwitch} />
       </div>
     </div>
   );

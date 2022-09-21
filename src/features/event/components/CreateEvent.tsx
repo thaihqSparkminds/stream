@@ -1,10 +1,12 @@
 import { CloseOutlined, LeftOutlined, YoutubeFilled } from '@ant-design/icons';
 import { Button, Divider } from 'antd';
+import { useAppDispatch } from 'app/hooks';
 import ytbAvatar from 'assets/images/youtube_avatar.png';
 import { DatePickerField, TimePickerField } from 'components/FormFields';
 import { CreateInformation1 } from 'models/event/createInformation1';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { eventActions } from '../eventSlice';
 import ChannelCard from './ChannelCard';
 interface CreateEventProps {
   formResult: CreateInformation1;
@@ -29,7 +31,7 @@ const CreateEvent: React.FunctionComponent<CreateEventProps> = ({
   title,
   btnText,
 }: CreateEventProps) => {
-  const [onAll, setOnAll] = useState<boolean | undefined>(undefined);
+  const dispatch = useAppDispatch();
   const { control, handleSubmit } = useForm({
     defaultValues: initialValue,
   });
@@ -50,13 +52,27 @@ const CreateEvent: React.FunctionComponent<CreateEventProps> = ({
           <div className="event__toggle-options">
             <span>Toggle all</span>
             <div className="event__toggle-btn-box">
-              <button onClick={() => setOnAll(false)}>OFF</button>
+              <button onClick={() => dispatch(eventActions.setActiveAll(false))}>OFF</button>
               <Divider className="divider" type="vertical" />
-              <button onClick={() => setOnAll(true)}>ON</button>
+              <button onClick={() => dispatch(eventActions.setActiveAll(true))}>ON</button>
             </div>
           </div>
         </div>
         <div className="event__list-items">
+          <ChannelCard
+            avatar={ytbAvatar}
+            miniLogoChannel={<YoutubeFilled />}
+            isPublic={true}
+            title={formResult.title}
+            name={'Thai Ho'}
+          />
+          <ChannelCard
+            avatar={ytbAvatar}
+            miniLogoChannel={<YoutubeFilled />}
+            isPublic={false}
+            title={formResult.title}
+            name={'Thai Ho'}
+          />
           <ChannelCard
             avatar={ytbAvatar}
             miniLogoChannel={<YoutubeFilled />}

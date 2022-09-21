@@ -8,6 +8,7 @@ import React, { useState } from 'react';
 import scheduleLogo from 'assets/images/event_schedule_logo.png';
 import ytbAvatar from 'assets/images/youtube_avatar.png';
 import { CreateInformation1 } from 'models/event/createInformation1';
+import ScheduleCard from './ScheduleCard';
 
 interface EventManageProps {
   handleCreate: () => void;
@@ -38,91 +39,26 @@ const EventManage: React.FunctionComponent<EventManageProps> = ({
           + Create Event
         </Button>
       </div>
-      <div className="event__schedule-card">
-        <div className="event-card__left-side">
-          <div className="event-card__logo-box">
-            <img src={scheduleLogo} alt="" />
-          </div>
-          <div className="event-card__info">
-            <span className="event-card__title">{formResult.title}</span>
-            <span className="event-card__datetime">{moment(formResult.date).format('LLLL')}</span>
-            <div className="event-card__img-container">
-              <div className="event-card__img">
-                <img src={ytbAvatar} alt="" />
-                <YoutubeFilled />
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="event-card__right-side">
-          <div className="event-card__action-container">
-            <button className="event-card__action" onClick={handleEmbed}>
-              <EmbedIcon />
-            </button>
-            <button className="event-card__action" onClick={handleEdit}>
-              <EditIcon />
-            </button>
-            <button className="event-card__action" onClick={handleDelete}>
-              <DeleteIcon />
-            </button>
-          </div>
-          <div className="event-card__other-option-box">
-            <Dropdown.Button
-              overlay={
-                <Menu>
-                  <Menu.Item>Switch to Studio</Menu.Item>
-                </Menu>
-              }
-              onClick={handleRtmp}
-            >
-              RTMP Settings
-            </Dropdown.Button>
-          </div>
-        </div>
-      </div>
 
-      <div className="event__schedule-card">
-        <div className="event-card__left-side">
-          <div className="event-card__logo-box">
-            <img src={scheduleLogo} alt="" />
-          </div>
-          <div className="event-card__info">
-            <span className="event-card__title">{formResult.title}</span>
-            <span className="event-card__datetime">{moment(formResult.date).format('LLLL')}</span>
-            <div className="event-card__img-container">
-              <div className="event-card__img">
-                <img src={ytbAvatar} alt="" />
-                <YoutubeFilled />
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="event-card__right-side">
-          <div className="event-card__action-container">
-            <button className="event-card__action" onClick={handleEmbed}>
-              <EmbedIcon />
-            </button>
-            <button className="event-card__action" onClick={handleEdit}>
-              <EditIcon />
-            </button>
-            <button className="event-card__action" onClick={handleDelete}>
-              <DeleteIcon />
-            </button>
-          </div>
-          <div className="event-card__other-option-box">
-            <Dropdown.Button
-              overlay={
-                <Menu>
-                  <Menu.Item>Switch to Studio</Menu.Item>
-                </Menu>
-              }
-              onClick={handleRtmp}
-            >
-              RTMP Settings
-            </Dropdown.Button>
-          </div>
-        </div>
-      </div>
+      <ScheduleCard
+        avatar={ytbAvatar}
+        formResult={formResult}
+        handleEmbed={handleEmbed}
+        handleEdit={handleEdit}
+        handleDelete={handleDelete}
+        handleRtmp={handleRtmp}
+        live
+      />
+
+      <ScheduleCard
+        avatar={ytbAvatar}
+        formResult={formResult}
+        handleEmbed={handleEmbed}
+        handleEdit={handleEdit}
+        handleDelete={handleDelete}
+        handleRtmp={handleRtmp}
+      />
+
       <p className="event__past-title" onClick={handleDropdown}>
         <span>Past Events</span>
         {!dropdown ? <DownOutlined /> : <UpOutlined />}
