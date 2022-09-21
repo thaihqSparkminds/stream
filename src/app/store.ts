@@ -2,12 +2,14 @@ import { Action, configureStore, ThunkAction } from '@reduxjs/toolkit';
 import authReducer from 'features/auth/authSlice';
 import landingReducer from 'features/landing/landingSlice';
 import staticReducer from 'features/static/staticSlice';
+import eventReducer from 'features/event/eventSlice';
 
 export const store = configureStore({
   reducer: {
     landing: landingReducer,
     auth: authReducer,
     static: staticReducer,
+    event: eventReducer,
   },
 });
 

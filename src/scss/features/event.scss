@@ -170,6 +170,15 @@
         font-size: 14px;
         text-align: center;
       }
+
+      .event__create-header-desc {
+        text-align: left;
+        color: #42526ee3;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 1.53;
+        margin-bottom: 20px;
+      }
     }
 
     .event-form {
@@ -304,6 +313,41 @@
       border-radius: 6px;
       margin-top: 12px;
     }
+
+    .event__rtmp-info-container {
+      .event__rtmp-info {
+        margin-bottom: 8px;
+        padding-bottom: 16px;
+
+        > div {
+          padding: 10px 12px;
+          box-shadow: inset 0 0 0 1px #a5adba;
+          border-radius: 4px;
+          transition: all 0.15s;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-top: 8px;
+          > div {
+            font-size: 16px;
+          }
+        }
+      }
+    }
+    .event__btn-container {
+      width: 100%;
+      text-align: right;
+
+      .event__btn {
+        background: #286fff;
+        border-radius: 4px;
+        padding: 8px 16px;
+        height: 35px;
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 1.2;
+      }
+    }
   }
 
   .event-item__logo-box {
@@ -402,6 +446,10 @@
       display: flex;
       justify-content: space-between;
 
+      + .event__schedule-card {
+        margin-top: 16px;
+      }
+
       .event-card__left-side {
         display: flex;
         gap: 16px;
@@ -488,6 +536,7 @@
         }
       }
     }
+
     .event__past-title {
       padding: 12px 0;
       margin: 0;
@@ -495,7 +544,13 @@
       font-size: 16px;
       font-weight: 400;
       color: #2684ff;
+      cursor: pointer;
+      user-select: none;
+      > span + span {
+        margin-left: 8px;
+      }
     }
+
     .event__past-history {
       height: 147px;
       background-color: #253858;

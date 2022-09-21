@@ -4,7 +4,6 @@ import { CreateInformation1 } from 'models/event/createInformation1';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import moment from 'moment';
 
 interface CreateForm1Props {
   initialValue: CreateInformation1;

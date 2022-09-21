@@ -13,6 +13,9 @@ interface CreateEventProps {
   handleBack: () => void;
   handleClose: () => void;
   handleAddChannel: () => void;
+  isBack?: boolean;
+  title?: string;
+  btnText?: string;
 }
 
 const CreateEvent: React.FunctionComponent<CreateEventProps> = ({
@@ -22,6 +25,9 @@ const CreateEvent: React.FunctionComponent<CreateEventProps> = ({
   handleBack,
   handleClose,
   handleAddChannel,
+  isBack,
+  title,
+  btnText,
 }: CreateEventProps) => {
   const [onAll, setOnAll] = useState<boolean | undefined>(undefined);
   const { control, handleSubmit } = useForm({
@@ -33,8 +39,8 @@ const CreateEvent: React.FunctionComponent<CreateEventProps> = ({
       <div className="event__create-container">
         <div className="event__create-header-box">
           <p>
-            <LeftOutlined onClick={handleBack} className="event__back-btn" />
-            Create event
+            {isBack && <LeftOutlined onClick={handleBack} className="event__back-btn" />}
+            {title ? title : 'Create event'}
             <CloseOutlined onClick={handleClose} className="event__close-btn" />
           </p>
           <span>Choose destinations and customize stream details.</span>
@@ -75,7 +81,7 @@ const CreateEvent: React.FunctionComponent<CreateEventProps> = ({
           </div>
           <div className="form__btn-container">
             <button className="btn btn-primary" type="submit">
-              Create Event
+              {btnText ? btnText : 'Create Event'}
             </button>
           </div>
         </form>

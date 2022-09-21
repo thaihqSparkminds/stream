@@ -10,6 +10,8 @@ import event from 'assets/images/login_event.png';
 import { SignupInformation } from 'models/authentication/signupInformation';
 import googleIcon from 'assets/images/google_icon.png';
 import facebookIcon from 'assets/images/facebook_icon.png';
+import { useAppDispatch } from 'app/hooks';
+import { authActions } from '../authSlice';
 
 interface LoginPageProps {}
 
@@ -21,9 +23,12 @@ const initialValue = {
 const LoginPage: React.FunctionComponent<LoginPageProps> = (props) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   const onSubmit = (value: SignupInformation) => {
     console.log(value);
+    dispatch(authActions.setIsLoggedIn(true));
+    navigate('/my');
   };
   return (
     <>
