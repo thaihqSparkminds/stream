@@ -1,4 +1,3 @@
-import { ExportOutlined } from '@ant-design/icons';
 import { Menu } from 'antd';
 import Sider from 'antd/lib/layout/Sider';
 import { useAppDispatch } from 'app/hooks';
@@ -11,13 +10,11 @@ import StorageSiderIcon from 'components/Icons/StorageSiderIcon';
 import TeamSiderIcon from 'components/Icons/TeamSiderIcon';
 import { authActions } from 'features/auth/authSlice';
 import React, { useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 interface ProductLayoutNavSideProps {}
 
 export const ProductLayoutNavSide: React.FunctionComponent<ProductLayoutNavSideProps> = (props) => {
-  const { t } = useTranslation();
   const [collapsed, setCollapsed] = useState(true);
   const navigate = useNavigate();
   const location = useLocation();

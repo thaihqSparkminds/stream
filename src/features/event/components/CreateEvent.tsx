@@ -4,7 +4,7 @@ import { useAppDispatch } from 'app/hooks';
 import ytbAvatar from 'assets/images/youtube_avatar.png';
 import { DatePickerField, TimePickerField } from 'components/FormFields';
 import { CreateInformation1 } from 'models/event/createInformation1';
-import React, { useState } from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import { eventActions } from '../eventSlice';
 import ChannelCard from './ChannelCard';

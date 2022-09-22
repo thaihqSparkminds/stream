@@ -1,13 +1,8 @@
-import { DownOutlined, UpOutlined, YoutubeFilled } from '@ant-design/icons';
-import { Button, Dropdown, Menu } from 'antd';
-import DeleteIcon from 'components/Icons/DeleteIcon';
-import EditIcon from 'components/Icons/EditIcon';
-import EmbedIcon from 'components/Icons/EmbedIcon';
-import moment from 'moment';
-import React, { useState } from 'react';
-import scheduleLogo from 'assets/images/event_schedule_logo.png';
+import { DownOutlined, UpOutlined } from '@ant-design/icons';
+import { Button } from 'antd';
 import ytbAvatar from 'assets/images/youtube_avatar.png';
 import { CreateInformation1 } from 'models/event/createInformation1';
+import React, { useState } from 'react';
 import ScheduleCard from './ScheduleCard';
 
 interface EventManageProps {

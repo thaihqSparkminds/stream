@@ -1,7 +1,6 @@
 import { InputField, PasswordInputField } from 'components/FormFields';
 import { LoginInformation } from 'models';
 import { useForm } from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
 
 export interface LoginFormProps {
   initialValue: LoginInformation;
@@ -9,8 +8,6 @@ export interface LoginFormProps {
 }
 
 export default function LoginForm({ initialValue, onSubmit }: LoginFormProps) {
-  const { t } = useTranslation();
-
   const { control, handleSubmit } = useForm({
     defaultValues: initialValue,
   });

@@ -1,17 +1,16 @@
 import { Divider } from 'antd';
-import LoginLogo from 'components/Icons/LoginLogo';
-import React from 'react';
-import { useTranslation } from 'react-i18next';
-import { Link, useNavigate } from 'react-router-dom';
-import LoginForm from '../components/LoginForm';
-import download from 'assets/images/login_download.png';
-import live from 'assets/images/login_live.png';
-import event from 'assets/images/login_event.png';
-import { SignupInformation } from 'models/authentication/signupInformation';
-import googleIcon from 'assets/images/google_icon.png';
-import facebookIcon from 'assets/images/facebook_icon.png';
 import { useAppDispatch } from 'app/hooks';
+import facebookIcon from 'assets/images/facebook_icon.png';
+import googleIcon from 'assets/images/google_icon.png';
+import download from 'assets/images/login_download.png';
+import event from 'assets/images/login_event.png';
+import live from 'assets/images/login_live.png';
+import LoginLogo from 'components/Icons/LoginLogo';
+import { SignupInformation } from 'models/authentication/signupInformation';
+import React from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { authActions } from '../authSlice';
+import LoginForm from '../components/LoginForm';
 
 interface LoginPageProps {}
 
@@ -21,14 +20,13 @@ const initialValue = {
 };
 
 const LoginPage: React.FunctionComponent<LoginPageProps> = (props) => {
-  const { t } = useTranslation();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
   const onSubmit = (value: SignupInformation) => {
     console.log(value);
     dispatch(authActions.setIsLoggedIn(true));
-    navigate('/my');
+    navigate('/my/event');
   };
   return (
     <>

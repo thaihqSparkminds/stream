@@ -5,7 +5,6 @@ import React from 'react';
 import { Navigate, Outlet, RouteProps } from 'react-router-dom';
 
 export const ProductLayout: React.FunctionComponent<RouteProps> = (props) => {
-  // const isLoggedIn = true;
   const isLoggedInState = useAppSelector(selectIsLoggedIn);
   return (
     <>

@@ -3,7 +3,6 @@ import { TextAreaField } from 'components/FormFields/TextAreaField';
 import { CreateInformation1 } from 'models/event/createInformation1';
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
 
 interface CreateForm1Props {
   initialValue: CreateInformation1;
@@ -14,7 +13,6 @@ const CreateForm1: React.FunctionComponent<CreateForm1Props> = ({
   initialValue,
   onSubmit,
 }: CreateForm1Props) => {
-  const { t } = useTranslation();
   const { control, handleSubmit } = useForm({
     defaultValues: initialValue,
   });

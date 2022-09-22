@@ -1,10 +1,9 @@
 import { Divider } from 'antd';
+import facebookIcon from 'assets/images/facebook_icon.png';
+import googleIcon from 'assets/images/google_icon.png';
 import React from 'react';
-import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
 import RegisterForm from '../components/RegisterForm';
-import googleIcon from 'assets/images/google_icon.png';
-import facebookIcon from 'assets/images/facebook_icon.png';
 
 interface RegisterPageProps {}
 
@@ -14,14 +13,13 @@ const initialValue = {
 };
 
 const RegisterPage: React.FunctionComponent<RegisterPageProps> = (props) => {
-  const { t } = useTranslation();
   const onSubmit = () => {};
   const navigate = useNavigate();
   return (
     <>
-      <div className="signup-page">
-        <div className="signup-container">
-          <h1 className="signup__header" onClick={() => navigate('/')}>
+      <div className="auth-page">
+        <div className="auth-container">
+          <h1 className="auth__header" onClick={() => navigate('/')}>
             Restream
           </h1>
           <div className="form__container">
@@ -44,7 +42,7 @@ const RegisterPage: React.FunctionComponent<RegisterPageProps> = (props) => {
               </p>
             </div>
           </div>
-          <div className="signup__confirm-text">
+          <div className="auth__confirm-text">
             By signing up, you agree to the Terms of Service. You also agree to receive emails from
             Restream.
           </div>

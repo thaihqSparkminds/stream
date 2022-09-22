@@ -41,10 +41,17 @@
   .form__divider {
     color: #888;
   }
-  .signup-form,
+
+  .auth-form,
   .login-form {
     .form__form-group {
       margin-bottom: 10px;
+      .form__alert {
+        background-color: #d9f3fe;
+        padding: 7px 12px 10px;
+        text-align: left;
+        border-radius: 6px;
+      }
       .form__form-group-field {
         input {
           padding: 14px 15px;
@@ -147,7 +154,7 @@
   }
 }
 
-.signup-page {
+.auth-page {
   padding: 40px 20px;
   height: 100vh;
   display: flex;
@@ -156,8 +163,8 @@
   text-align: center;
   background-color: #000000;
 
-  .signup-container {
-    .signup__header {
+  .auth-container {
+    .auth__header {
       text-align: center;
       color: white;
       font-weight: 700;
@@ -184,7 +191,7 @@
       }
     }
 
-    .signup__confirm-text {
+    .auth__confirm-text {
       width: 380px;
       margin: 32px auto 0;
       color: hsla(0, 0%, 100%, 0.54);
