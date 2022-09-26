@@ -1,4 +1,5 @@
 import { CloseOutlined, LeftOutlined } from '@ant-design/icons';
+import eventApi from 'api/eventApi';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import eventLogo from 'assets/images/event_logo.png';
 import ObsLogo from 'components/Icons/ObsLogo';
@@ -89,6 +90,8 @@ const EventMainPage: React.FunctionComponent<EventMainPageProps> = (props) => {
         break;
       case 1:
         bgRef.current.style.display = 'block';
+        break;
+      case 3:
         break;
       case 5:
         bgRef.current.style.display = 'none';

@@ -24,7 +24,7 @@ const App: React.FunctionComponent<AppProps> = (props) => {
         <Route path="login" element={<LoginPage />} />
 
         <Route path="/my/*" element={<ProductLayout />}>
-          <Route path="event" element={<EventPage />} />
+          <Route path="event/*" element={<EventPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Route>
 
