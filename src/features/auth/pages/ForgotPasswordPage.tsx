@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from 'app/hooks';
-import { ForgotInformation } from 'models/authentication/forgotInfomation';
+import { ForgotInformation } from 'models';
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { authActions, selectStates } from '../authSlice';

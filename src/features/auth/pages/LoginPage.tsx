@@ -1,4 +1,5 @@
 import { Divider } from 'antd';
+import authApi from 'api/authApi';
 import { useAppDispatch } from 'app/hooks';
 import facebookIcon from 'assets/images/facebook_icon.png';
 import googleIcon from 'assets/images/google_icon.png';
@@ -6,8 +7,8 @@ import download from 'assets/images/login_download.png';
 import event from 'assets/images/login_event.png';
 import live from 'assets/images/login_live.png';
 import LoginLogo from 'components/Icons/LoginLogo';
-import { SignupInformation } from 'models/authentication/signupInformation';
-import React from 'react';
+import { LoginInformation, SignupInformation } from 'models';
+import React, { useCallback, useMemo } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { authActions } from '../authSlice';
 import LoginForm from '../components/LoginForm';
@@ -23,11 +24,19 @@ const LoginPage: React.FunctionComponent<LoginPageProps> = (props) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  const onSubmit = (value: SignupInformation) => {
-    console.log(value);
-    dispatch(authActions.setIsLoggedIn(true));
+  const onSubmit = (value: LoginInformation) => {
+    login(value);
     navigate('/my/event');
   };
+
+  const login = async (value: LoginInformation) => {
+    var a = await authApi.login(value);
+    if (a.ok) {
+      console.log(a.body?.token);
+      dispatch(authActions.setIsLoggedIn(true));
+    }
+  };
+
   return (
     <>
       <div className="login-page" style={{ backgroundColor: 'white' }}>

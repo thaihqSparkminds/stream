@@ -1,6 +1,6 @@
 import { useAppSelector } from 'app/hooks';
 import { InputField } from 'components/FormFields';
-import { ForgotInformation } from 'models/authentication/forgotInfomation';
+import { ForgotInformation } from 'models';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { selectStates } from '../authSlice';

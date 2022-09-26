@@ -1,5 +1,5 @@
 import { InputField, PasswordInputField } from 'components/FormFields';
-import { SignupInformation } from 'models/authentication/signupInformation';
+import { SignupInformation } from 'models';
 import { useForm } from 'react-hook-form';
 
 export interface RegisterFormProps {

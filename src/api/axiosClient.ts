@@ -1,9 +1,11 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
+import { HttpResponse } from 'models/http';
 
 const axiosClient = axios.create({
   baseURL: process.env.BASE_GATEWAY_URL || 'http://localhost:8000',
   headers: {
     'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': '*',
   },
   withCredentials: true,
 });
@@ -33,5 +35,11 @@ axiosClient.interceptors.response.use(
     return Promise.reject(error);
   }
 );
+
+export const handleRequest = (promise: Promise<any>) => {
+  return promise
+    .then((res: any) => res as HttpResponse<any>)
+    .catch((err: any) => err as HttpResponse<any>);
+};
 
 export default axiosClient;
