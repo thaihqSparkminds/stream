@@ -31,6 +31,27 @@ const EventMainPage: React.FunctionComponent<EventMainPageProps> = (props) => {
   const [formResult, setFormResult] = useState(initialValue1);
   const dispatch = useAppDispatch();
   const stepState = useAppSelector(selectStep);
+  const [youtubeEvent, setYoutubeEvent] = useState(localStorage.getItem('youtube') || '0');
+  const [twitchEvent, setTwitchEvent] = useState(localStorage.getItem('twitch') || '0');
+
+  useEffect(() => {
+    if (!localStorage.getItem('youtube')) {
+      localStorage.setItem('youtube', '0');
+      setYoutubeEvent('0');
+    }
+    if (!localStorage.getItem('twitch')) {
+      localStorage.setItem('twitch', '0');
+      setTwitchEvent('0');
+    }
+  }, []);
+
+  useEffect(() => {
+    setYoutubeEvent(localStorage.getItem('youtube') || '0');
+  }, [localStorage.getItem('youtube')]);
+
+  useEffect(() => {
+    setTwitchEvent(localStorage.getItem('twitch') || '0');
+  }, [localStorage.getItem('twitch')]);
 
   const handleClose = () => {
     setStep(0);
@@ -50,7 +71,8 @@ const EventMainPage: React.FunctionComponent<EventMainPageProps> = (props) => {
   };
 
   const onCreate = (value: CreateInformation1) => {
-    setStep(5);
+    localStorage.setItem('eventNum', `${localEvent + 1}`);
+    setStep(0);
   };
 
   const handleAddChannel = () => {
@@ -80,7 +102,16 @@ const EventMainPage: React.FunctionComponent<EventMainPageProps> = (props) => {
     setStep(6);
     dispatch(eventActions.setStep(6));
   };
-  const handleDelete = () => {};
+
+  const handleDelete = (value: string) => {
+    if (value === 'youtube') localStorage.setItem('youtube', `${Number(youtubeEvent) - 1}`);
+    if (value === 'twitch') localStorage.setItem('twitch', `${Number(twitchEvent) - 1}`);
+  };
+
+  const handleSelect = (value: string) => {
+    if (value === 'youtube') localStorage.setItem('youtube', `${Number(youtubeEvent) + 1}`);
+    if (value === 'twitch') localStorage.setItem('twitch', `${Number(twitchEvent) + 1}`);
+  };
 
   useEffect(() => {
     switch (step) {
@@ -102,7 +133,7 @@ const EventMainPage: React.FunctionComponent<EventMainPageProps> = (props) => {
   return (
     <>
       <div className="event-page">
-        {step === 0 && (
+        {youtubeEvent === '0' && twitchEvent === '0' ? (
           <div className="event__container">
             <img src={eventLogo} alt="" />
             <span className="event__title">Schedule an Event</span>
@@ -111,6 +142,15 @@ const EventMainPage: React.FunctionComponent<EventMainPageProps> = (props) => {
             </span>
             <button onClick={handleClick}>+ Schedule Live Event</button>
           </div>
+        ) : (
+          <EventManage
+            handleCreate={handleClick}
+            formResult={formResult}
+            handleRtmp={handleRtmp}
+            handleEmbed={handleEmbed}
+            handleEdit={handleEdit}
+            handleDelete={(e: string) => handleDelete(e)}
+          />
         )}
         {step === 1 && (
           <>
@@ -171,16 +211,11 @@ const EventMainPage: React.FunctionComponent<EventMainPageProps> = (props) => {
           />
         )}
 
-        {step === 4 && <AddChannel handleClose={handleClose} handleBack={handleBack} />}
-
-        {step === 5 && (
-          <EventManage
-            handleCreate={handleClick}
-            formResult={formResult}
-            handleRtmp={handleRtmp}
-            handleEmbed={handleEmbed}
-            handleEdit={handleEdit}
-            handleDelete={handleDelete}
+        {step === 4 && (
+          <AddChannel
+            handleSelect={handleSelect}
+            handleClose={handleClose}
+            handleBack={handleBack}
           />
         )}
 
@@ -192,7 +227,7 @@ const EventMainPage: React.FunctionComponent<EventMainPageProps> = (props) => {
           />
         )}
 
-        {step === 6 && (
+        {step === 5 && (
           <CreateEvent
             formResult={formResult}
             handleClose={handleClose}

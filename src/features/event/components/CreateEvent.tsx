@@ -59,27 +59,13 @@ const CreateEvent: React.FunctionComponent<CreateEventProps> = ({
           </div>
         </div>
         <div className="event__list-items">
-          <ChannelCard
+          {/* <ChannelCard
             avatar={ytbAvatar}
             miniLogoChannel={<YoutubeFilled />}
             isPublic={true}
             title={formResult.title}
             name={'Thai Ho'}
-          />
-          <ChannelCard
-            avatar={ytbAvatar}
-            miniLogoChannel={<YoutubeFilled />}
-            isPublic={false}
-            title={formResult.title}
-            name={'Thai Ho'}
-          />
-          <ChannelCard
-            avatar={ytbAvatar}
-            miniLogoChannel={<YoutubeFilled />}
-            isPublic={true}
-            title={formResult.title}
-            name={'Thai Ho'}
-          />
+          /> */}
         </div>
         <Button className="event__create-btn" type="primary" onClick={handleAddChannel}>
           + Add Channels

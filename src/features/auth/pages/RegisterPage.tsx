@@ -23,12 +23,15 @@ const RegisterPage: React.FunctionComponent<RegisterPageProps> = (props) => {
     signup(value);
   };
 
-  const signup = async (value: SignupInformation) => {
-    var a = await authApi.signup(value);
-    if (a.ok) {
-      navigate('/');
-    }
-  };
+  const signup = useCallback(
+    async (value: SignupInformation) => {
+      const body = await authApi.signup(value);
+      if (body) {
+        navigate('/login');
+      }
+    },
+    [navigate]
+  );
 
   return (
     <>

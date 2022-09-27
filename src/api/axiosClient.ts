@@ -5,7 +5,6 @@ const axiosClient = axios.create({
   baseURL: process.env.BASE_GATEWAY_URL || 'http://localhost:8000',
   headers: {
     'Content-Type': 'application/json',
-    'Access-Control-Allow-Origin': '*',
   },
   withCredentials: true,
 });

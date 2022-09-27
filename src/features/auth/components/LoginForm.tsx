@@ -18,12 +18,13 @@ export default function LoginForm({ initialValue, onSubmit }: LoginFormProps) {
         <form className="form login-form" onSubmit={handleSubmit(onSubmit)}>
           <div className="form__form-group">
             <div className="form__form-group-field">
-              <InputField name="email" control={control} placeholder="Email" />
+              <InputField name="email" control={control} required placeholder="Email" />
             </div>
           </div>
           <div className="form__form-group">
             <div className="form__form-group-field">
               <PasswordInputField
+                required
                 name="password"
                 control={control}
                 placeholder="Password"
