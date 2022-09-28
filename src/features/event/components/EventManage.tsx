@@ -39,7 +39,6 @@ const EventManage: React.FunctionComponent<EventManageProps> = ({
         </Button>
       </div>
 
-      {Array.from(Array(youtubeNum)).map((item, index) => (
         <ScheduleCard
           avatar={ytbAvatar}
           formResult={formResult}
@@ -47,9 +46,8 @@ const EventManage: React.FunctionComponent<EventManageProps> = ({
           handleEdit={handleEdit}
           handleDelete={() => handleDelete('youtube')}
           handleRtmp={handleRtmp}
+          live
         />
-      ))}
-      {Array.from(Array(twitchNum)).map((item, index) => (
         <ScheduleCard
           avatar={ytbAvatar}
           formResult={formResult}
@@ -58,17 +56,6 @@ const EventManage: React.FunctionComponent<EventManageProps> = ({
           handleDelete={() => handleDelete('twitch')}
           handleRtmp={handleRtmp}
         />
-      ))}
-
-      {/* <ScheduleCard
-        avatar={ytbAvatar}
-        formResult={formResult}
-        handleEmbed={handleEmbed}
-        handleEdit={handleEdit}
-        handleDelete={handleDelete}
-        handleRtmp={handleRtmp}
-        live
-      /> */}
 
       <p className="event__past-title" onClick={handleDropdown}>
         <span>Past Events</span>

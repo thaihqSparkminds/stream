@@ -71,7 +71,7 @@ const EventMainPage: React.FunctionComponent<EventMainPageProps> = (props) => {
   };
 
   const onCreate = (value: CreateInformation1) => {
-    localStorage.setItem('eventNum', `${localEvent + 1}`);
+    localStorage.setItem('twitch', `${Number(twitchEvent) - 1}`)
     setStep(0);
   };
 
@@ -104,13 +104,9 @@ const EventMainPage: React.FunctionComponent<EventMainPageProps> = (props) => {
   };
 
   const handleDelete = (value: string) => {
-    if (value === 'youtube') localStorage.setItem('youtube', `${Number(youtubeEvent) - 1}`);
-    if (value === 'twitch') localStorage.setItem('twitch', `${Number(twitchEvent) - 1}`);
   };
 
   const handleSelect = (value: string) => {
-    if (value === 'youtube') localStorage.setItem('youtube', `${Number(youtubeEvent) + 1}`);
-    if (value === 'twitch') localStorage.setItem('twitch', `${Number(twitchEvent) + 1}`);
   };
 
   useEffect(() => {
