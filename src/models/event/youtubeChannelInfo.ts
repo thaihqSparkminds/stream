@@ -1,5 +1,5 @@
 export interface YoutubeChannelInfo {
   title: string;
-  imageUrl: string;
+  image: string;
   channelId: string;
 }
