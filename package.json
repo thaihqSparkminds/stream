@@ -26,6 +26,7 @@
     "i18next-http-backend": "^1.4.4",
     "node-sass": "^7.0.3",
     "parse-link-header": "^2.0.0",
+    "query-string": "^7.1.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-hook-form": "^7.23.0",

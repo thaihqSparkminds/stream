@@ -3,7 +3,7 @@ import React from 'react';
 interface ChannelItemProps {
   logo: React.ReactNode;
   name: string;
-  onClick: () => void;
+  onClick?: () => void;
 }
 
 const ChannelItem: React.FunctionComponent<ChannelItemProps> = ({ logo, name, onClick }) => {

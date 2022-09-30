@@ -13,7 +13,9 @@ export * from './user/user';
 /** Wallet */
 
 /** Authentication */
-export * from './authentication/loginInformation';
+export * from './authentication/authInformation';
+export * from './authentication/loginResponse';
+export * from './authentication/logoutRequest';
 
 /** Notification */
 

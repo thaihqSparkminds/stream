@@ -1,5 +1,6 @@
 import { Menu } from 'antd';
 import Sider from 'antd/lib/layout/Sider';
+import authApi from 'api/authApi';
 import { useAppDispatch } from 'app/hooks';
 import EventSiderIcon from 'components/Icons/EventSiderIcon';
 import HomeSiderIcon from 'components/Icons/HomeSiderIcon';
@@ -9,7 +10,8 @@ import { SidebarLogo } from 'components/Icons/SidebarLogo';
 import StorageSiderIcon from 'components/Icons/StorageSiderIcon';
 import TeamSiderIcon from 'components/Icons/TeamSiderIcon';
 import { authActions } from 'features/auth/authSlice';
-import React, { useState } from 'react';
+import { logoutRequest, userDetailInformation } from 'models';
+import React, { useCallback, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 interface ProductLayoutNavSideProps {}
@@ -19,6 +21,8 @@ export const ProductLayoutNavSide: React.FunctionComponent<ProductLayoutNavSideP
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useAppDispatch();
+  const token = useRef(localStorage.getItem('token'));
+  const sessionId = useRef(localStorage.getItem('sessionId'));
   const currentPath = () => {
     return location.pathname.split('/').slice(2);
   };
@@ -27,8 +31,16 @@ export const ProductLayoutNavSide: React.FunctionComponent<ProductLayoutNavSideP
   };
 
   const handleLogout = () => {
+    if (sessionId.current && token.current) logout(token.current, sessionId.current);
     dispatch(authActions.setIsLoggedIn(false));
+    localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('token');
+    localStorage.removeItem('sessionId');
   };
+
+  const logout = useCallback(async (token: string, sessionId: string) => {
+    await authApi.logout(token, sessionId);
+  }, []);
 
   return (
     <>

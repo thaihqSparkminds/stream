@@ -66,13 +66,7 @@ const CreateEvent: React.FunctionComponent<CreateEventProps> = ({
             title={formResult.title}
             name={'Thai Ho'}
           />
-          <ChannelCard
-            avatar={ytbAvatar}
-            miniLogoChannel={<YoutubeFilled />}
-            isPublic={false}
-            title={formResult.title}
-            name={'Thai Ho'}
-          />
+          
           <ChannelCard
             avatar={ytbAvatar}
             miniLogoChannel={<YoutubeFilled />}

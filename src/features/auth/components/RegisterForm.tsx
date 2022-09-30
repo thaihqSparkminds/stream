@@ -1,5 +1,5 @@
 import { InputField, PasswordInputField } from 'components/FormFields';
-import { SignupInformation } from 'models/authentication/signupInformation';
+import { SignupInformation } from 'models';
 import { useForm } from 'react-hook-form';
 
 export interface RegisterFormProps {
@@ -17,12 +17,13 @@ export default function RegisterForm({ initialValue, onSubmit }: RegisterFormPro
       <form className="form auth-form" onSubmit={handleSubmit(onSubmit)}>
         <div className="form__form-group">
           <div className="form__form-group-field">
-            <InputField name="email" control={control} placeholder="Email" />
+            <InputField name="email" control={control} required placeholder="Email" />
           </div>
         </div>
         <div className="form__form-group">
           <div className="form__form-group-field">
             <PasswordInputField
+              required
               name="password"
               control={control}
               placeholder="Password"

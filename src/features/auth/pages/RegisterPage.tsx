@@ -1,8 +1,12 @@
 import { Divider } from 'antd';
+import authApi from 'api/authApi';
+import { useAppDispatch } from 'app/hooks';
 import facebookIcon from 'assets/images/facebook_icon.png';
 import googleIcon from 'assets/images/google_icon.png';
-import React from 'react';
+import { SignupInformation } from 'models';
+import React, { useCallback, useMemo } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { authActions } from '../authSlice';
 import RegisterForm from '../components/RegisterForm';
 
 interface RegisterPageProps {}
@@ -13,8 +17,22 @@ const initialValue = {
 };
 
 const RegisterPage: React.FunctionComponent<RegisterPageProps> = (props) => {
-  const onSubmit = () => {};
   const navigate = useNavigate();
+
+  const onSubmit = (value: SignupInformation) => {
+    signup(value);
+  };
+
+  const signup = useCallback(
+    async (value: SignupInformation) => {
+      const body = await authApi.signup(value);
+      if (body) {
+        navigate('/login');
+      }
+    },
+    [navigate]
+  );
+
   return (
     <>
       <div className="auth-page">

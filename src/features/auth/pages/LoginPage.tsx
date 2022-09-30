@@ -1,15 +1,16 @@
 import { Divider } from 'antd';
-import { useAppDispatch } from 'app/hooks';
+import authApi from 'api/authApi';
+import { useAppDispatch, useAppSelector } from 'app/hooks';
 import facebookIcon from 'assets/images/facebook_icon.png';
 import googleIcon from 'assets/images/google_icon.png';
 import download from 'assets/images/login_download.png';
 import event from 'assets/images/login_event.png';
 import live from 'assets/images/login_live.png';
 import LoginLogo from 'components/Icons/LoginLogo';
-import { SignupInformation } from 'models/authentication/signupInformation';
-import React from 'react';
+import { LoginInformation } from 'models';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { authActions } from '../authSlice';
+import { authActions, selectIsLoggedIn } from '../authSlice';
 import LoginForm from '../components/LoginForm';
 
 interface LoginPageProps {}
@@ -22,12 +23,29 @@ const initialValue = {
 const LoginPage: React.FunctionComponent<LoginPageProps> = (props) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const isLoggedInState = useAppSelector(selectIsLoggedIn);
 
-  const onSubmit = (value: SignupInformation) => {
-    console.log(value);
-    dispatch(authActions.setIsLoggedIn(true));
-    navigate('/my/event');
+  const onSubmit = (value: LoginInformation) => {
+    login(value);
   };
+
+  useEffect(() => {
+    if (isLoggedInState) navigate('/my/event');
+  }, [isLoggedInState, navigate]);
+
+  const login = useCallback(
+    async (value: LoginInformation) => {
+      const body = await authApi.login(value);
+
+      if (body) {
+        localStorage.setItem('sessionId', body.sessionId);
+        localStorage.setItem('token', body.token);
+        dispatch(authActions.setIsLoggedIn(true));
+      }
+    },
+    [dispatch]
+  );
+
   return (
     <>
       <div className="login-page" style={{ backgroundColor: 'white' }}>

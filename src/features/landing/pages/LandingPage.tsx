@@ -1,18 +1,33 @@
 import { Button, Form, Input } from 'antd';
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import landingLogo from 'assets/images/landing_logo.png';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import googleIcon from 'assets/images/google_icon.png';
 import facebookIcon from 'assets/images/facebook_icon.png';
+import { SignupInformation } from 'models';
+import authApi from 'api/authApi';
 
 interface LandingPageProps {}
 
 const LandingPage: React.FunctionComponent<LandingPageProps> = (props) => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
+
   const onFinish = (values: any) => {
-    console.log(values);
+    signup(values);
   };
+
+  const signup = useCallback(
+    async (value: SignupInformation) => {
+      const body = await authApi.signup(value);
+      if (body) {
+        navigate('/login');
+      }
+    },
+    [navigate]
+  );
+
   return (
     <>
       <div className="landing">
@@ -40,7 +55,6 @@ const LandingPage: React.FunctionComponent<LandingPageProps> = (props) => {
               wrapperCol={{ span: 16 }}
               initialValues={{ remember: true }}
               onFinish={onFinish}
-              // onFinishFailed={onFinishFailed}
               autoComplete="off"
             >
               <Form.Item
