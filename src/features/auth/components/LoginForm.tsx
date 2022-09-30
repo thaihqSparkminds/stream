@@ -1,6 +1,8 @@
+import { useAppSelector } from 'app/hooks';
 import { InputField, PasswordInputField } from 'components/FormFields';
 import { LoginInformation } from 'models';
 import { useForm } from 'react-hook-form';
+import { selectStates } from '../authSlice';
 
 export interface LoginFormProps {
   initialValue: LoginInformation;
@@ -11,6 +13,7 @@ export default function LoginForm({ initialValue, onSubmit }: LoginFormProps) {
   const { control, handleSubmit } = useForm({
     defaultValues: initialValue,
   });
+  const authStates = useAppSelector(selectStates);
 
   return (
     <>
@@ -32,6 +35,7 @@ export default function LoginForm({ initialValue, onSubmit }: LoginFormProps) {
               />
             </div>
           </div>
+
           <button className="btn btn-primary" type="submit">
             Log In
           </button>

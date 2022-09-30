@@ -10,11 +10,12 @@ import moment from 'moment';
 
 interface ScheduleCardProps {
   avatar: string;
+  logo: React.ReactNode;
   formResult: CreateInformation1;
   handleEmbed: () => void;
   handleEdit: () => void;
   handleDelete: () => void;
-  handleRtmp: () => void;
+  handleRtmp: (value?: any) => void;
   live?: boolean;
 }
 
@@ -25,6 +26,7 @@ const ScheduleCard: React.FunctionComponent<ScheduleCardProps> = ({
   handleEdit,
   handleDelete,
   handleRtmp,
+  logo,
   live,
 }) => {
   return (
@@ -40,7 +42,7 @@ const ScheduleCard: React.FunctionComponent<ScheduleCardProps> = ({
           <div className="event-card__img-container">
             <div className="event-card__img">
               <img src={avatar} alt="" />
-              <YoutubeFilled />
+              {logo}
             </div>
           </div>
         </div>

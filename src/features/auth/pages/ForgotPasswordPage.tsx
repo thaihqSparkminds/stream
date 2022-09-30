@@ -1,14 +1,16 @@
+import authApi from 'api/authApi';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { ForgotInformation } from 'models';
-import React from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { authActions, selectStates } from '../authSlice';
 import ForgotForm from '../components/ForgotForm';
 
 interface ForgotPasswordPageProps {}
 
-const initialValue = {
+const initialValue: ForgotInformation = {
   email: '',
+  password: '',
 };
 
 const ForgotPasswordPage: React.FunctionComponent<ForgotPasswordPageProps> = (props) => {
@@ -17,15 +19,24 @@ const ForgotPasswordPage: React.FunctionComponent<ForgotPasswordPageProps> = (pr
   const authState = useAppSelector(selectStates);
 
   const onSubmit = (value: ForgotInformation) => {
-    dispatch(authActions.setIsSendResetPass(!authState.isSendResetPass));
     if (!authState.isSendResetPass) {
-      dispatch(authActions.setIsSendResetPass(true));
-      dispatch(authActions.setForgotEmail(value.email));
+      resetPassword(value);
     } else {
       navigate('/');
       dispatch(authActions.setForgotReset());
     }
   };
+
+  useEffect(() => {
+    dispatch(authActions.setAlertFail(null));
+  }, []);
+
+  const resetPassword = useCallback(async (value: ForgotInformation) => {
+    const res = await authApi.resetPassword(value);
+    if (res === true) dispatch(authActions.setIsSendResetPass(true));
+    else dispatch(authActions.setAlertFail(true));
+  }, []);
+
   return (
     <div className="auth-page">
       <div className="auth-container">

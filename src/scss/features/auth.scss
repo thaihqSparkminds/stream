@@ -44,14 +44,21 @@
 
   .auth-form,
   .login-form {
+    .form__alert {
+      background-color: #d9f3fe;
+      padding: 10px 12px;
+      text-align: left;
+      border-radius: 6px;
+      width: 100%;
+      margin-bottom: 5px;
+
+      &.form__alert--red {
+        background-color: rgb(228, 87, 87);
+        color: white;
+      }
+    }
     .form__form-group {
       margin-bottom: 10px;
-      .form__alert {
-        background-color: #d9f3fe;
-        padding: 7px 12px 10px;
-        text-align: left;
-        border-radius: 6px;
-      }
       .form__form-group-field {
         input {
           padding: 14px 15px;

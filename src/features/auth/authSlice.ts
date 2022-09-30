@@ -6,7 +6,7 @@ export interface AuthState {
   logging?: boolean;
   currentUser?: User;
   isSendResetPass: boolean;
-  forgotEmail: string;
+  alertFail: boolean | null;
 }
 
 const initialState: AuthState = {
@@ -14,7 +14,7 @@ const initialState: AuthState = {
   logging: false,
   currentUser: undefined,
   isSendResetPass: false,
-  forgotEmail: '',
+  alertFail: null,
 };
 
 const authSlice = createSlice({
@@ -27,12 +27,11 @@ const authSlice = createSlice({
     setIsSendResetPass(state, action) {
       state.isSendResetPass = action.payload;
     },
-    setForgotEmail(state, action) {
-      state.forgotEmail = action.payload;
-    },
     setForgotReset(state) {
       state.isSendResetPass = false;
-      state.forgotEmail = '';
+    },
+    setAlertFail(state, action) {
+      state.alertFail = action.payload;
     },
   },
   extraReducers: {},
