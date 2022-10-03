@@ -1,20 +1,21 @@
 import { DownOutlined, UpOutlined, YoutubeFilled } from '@ant-design/icons';
 import { Button } from 'antd';
 import { useAppSelector } from 'app/hooks';
-import ytbAvatar from 'assets/images/youtube_avatar.png';
 import twitchLogo from 'assets/images/twitch_logo.png';
+import ytbAvatar from 'assets/images/youtube_avatar.png';
 import { CreateInformation1 } from 'models/event/createInformation1';
-import React, { useRef, useState } from 'react';
-import { selectStates } from '../eventSlice';
+import { UserPlatform } from 'models/user/userPlatform';
+import React, { useState } from 'react';
+import { selectEventStates } from '../eventSlice';
 import ScheduleCard from './ScheduleCard';
 
 interface EventManageProps {
   handleCreate: () => void;
   formResult: CreateInformation1;
-  handleRtmp: (e: string) => void;
+  handleRtmp: (platformType: string, channelId: string) => void;
   handleEmbed: () => void;
   handleEdit: () => void;
-  handleDelete: (e: string) => void;
+  handleDelete: () => void;
 }
 
 const EventManage: React.FunctionComponent<EventManageProps> = ({
@@ -26,11 +27,10 @@ const EventManage: React.FunctionComponent<EventManageProps> = ({
   handleDelete,
 }) => {
   const [dropdown, setDropdown] = useState(true);
-  // const [youtubeEvent, setYoutubeEvent] = useState(localStorage.getItem('youtube') || '0');
-  // const [twitchEvent, setTwitchEvent] = useState(localStorage.getItem('twitch') || '0');
   const handleDropdown = () => {
     setDropdown(!dropdown);
   };
+  const userPlatform = useAppSelector(selectEventStates).userPlatform;
 
   return (
     <div className="event__main">
@@ -41,29 +41,26 @@ const EventManage: React.FunctionComponent<EventManageProps> = ({
         </Button>
       </div>
 
-      <ScheduleCard
-        avatar={ytbAvatar}
-        logo={<YoutubeFilled />}
-        formResult={formResult}
-        handleEmbed={handleEmbed}
-        handleEdit={handleEdit}
-        handleDelete={() => handleDelete('youtube')}
-        handleRtmp={() => handleRtmp('youtube')}
-        live
-      />
-      <ScheduleCard
-        logo={
-          <div>
-            <img src={twitchLogo} alt="" />
-          </div>
-        }
-        avatar={ytbAvatar}
-        formResult={formResult}
-        handleEmbed={handleEmbed}
-        handleEdit={handleEdit}
-        handleDelete={() => handleDelete('twitch')}
-        handleRtmp={() => handleRtmp('twitch')}
-      />
+      {userPlatform &&
+        userPlatform.map((e: UserPlatform) => (
+          <ScheduleCard
+            avatar={e.image}
+            logo={
+              e.platformType === 'YOUTUBE' ? (
+                <YoutubeFilled />
+              ) : (
+                <div>
+                  <img src={twitchLogo} alt="" />
+                </div>
+              )
+            }
+            formResult={formResult}
+            handleEmbed={handleEmbed}
+            handleEdit={handleEdit}
+            handleDelete={handleDelete}
+            handleRtmp={() => handleRtmp(e.platformType, e.channelId)}
+          />
+        ))}
 
       <p className="event__past-title" onClick={handleDropdown}>
         <span>Past Events</span>

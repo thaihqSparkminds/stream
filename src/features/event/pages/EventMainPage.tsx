@@ -1,19 +1,22 @@
 import { CloseOutlined, LeftOutlined } from '@ant-design/icons';
-import eventApi from 'api/eventApi';
+import userApi from 'api/userApi';
+import youtubeApi from 'api/youtubeApi';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import eventLogo from 'assets/images/event_logo.png';
 import ObsLogo from 'components/Icons/ObsLogo';
 import RecordLogo from 'components/Icons/RecordLogo';
 import VideoLogo from 'components/Icons/VideoLogo';
 import { CreateInformation1 } from 'models/event/createInformation1';
-import React, { useEffect, useRef, useState } from 'react';
+import { YoutubeCreateStreamResponse } from 'models/event/youtubeCreateStreamResponse';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { authActions, selectStates } from '../../auth/authSlice';
 import AddChannel from '../components/AddChannel';
 import Card from '../components/Card';
 import CreateEvent from '../components/CreateEvent';
 import CreateForm1 from '../components/CreateForm1';
 import EventManage from '../components/EventManage';
 import RtmpSetting from '../components/RtmpSetting';
-import { eventActions, selectStates, selectStep } from '../eventSlice';
+import { eventActions, selectEventStates, selectStep } from '../eventSlice';
 
 interface EventMainPageProps {}
 
@@ -31,28 +34,38 @@ const EventMainPage: React.FunctionComponent<EventMainPageProps> = (props) => {
   const [formResult, setFormResult] = useState(initialValue1);
   const dispatch = useAppDispatch();
   const stepState = useAppSelector(selectStep);
-  const eventStates = useAppSelector(selectStates);
-  const [youtubeEvent, setYoutubeEvent] = useState(localStorage.getItem('youtube') || '0');
-  const [twitchEvent, setTwitchEvent] = useState(localStorage.getItem('twitch') || '0');
+  const userPlatform = useAppSelector(selectEventStates).userPlatform;
+  const sessionId = useRef(localStorage.getItem('sessionId'));
+  const token = useRef(localStorage.getItem('token'));
+  const userDetail = useAppSelector(selectStates).userDetail;
+  const [youtubeCreateStream, setYoutubeCreateStream] =
+    useState<YoutubeCreateStreamResponse | null>(null);
 
-  useEffect(() => {
-    if (!localStorage.getItem('youtube')) {
-      localStorage.setItem('youtube', '0');
-      setYoutubeEvent('0');
+  const getUserDetail = useCallback(async () => {
+    if (sessionId.current && token.current) {
+      const body = await userApi.getUserDetail(token.current, sessionId.current);
+      if (body) {
+        dispatch(authActions.setUserDetail(body));
+      }
     }
-    if (!localStorage.getItem('twitch')) {
-      localStorage.setItem('twitch', '0');
-      setTwitchEvent('0');
+  }, []);
+
+  const getPlatfomUser = useCallback(async (userId: number) => {
+    const body = await userApi.getPlatfomUser(userId);
+    if (body) {
+      dispatch(eventActions.setUserPlatform(body));
     }
   }, []);
 
   useEffect(() => {
-    setYoutubeEvent(localStorage.getItem('youtube') || '0');
-  }, [localStorage.getItem('youtube')]);
+    getUserDetail();
+  }, []);
 
   useEffect(() => {
-    setTwitchEvent(localStorage.getItem('twitch') || '0');
-  }, [localStorage.getItem('twitch')]);
+    if (userDetail) {
+      getPlatfomUser(userDetail.userId);
+    }
+  }, [userDetail, getPlatfomUser]);
 
   const handleClose = () => {
     setStep(0);
@@ -72,7 +85,6 @@ const EventMainPage: React.FunctionComponent<EventMainPageProps> = (props) => {
   };
 
   const onCreate = (value: CreateInformation1) => {
-    localStorage.setItem('twitch', `${Number(twitchEvent) - 1}`);
     setStep(0);
   };
 
@@ -87,10 +99,21 @@ const EventMainPage: React.FunctionComponent<EventMainPageProps> = (props) => {
     } else setStep(step - 1);
   };
 
-  const handleRtmp = (value: string) => {
+  const handleRtmp = (type: string, channelId: string) => {
     bgRef.current.style.display = 'block';
-    setShowRtmp(value);
+    if (token.current) handleYoutubeCreateStream(userDetail.userId, token.current, channelId);
+    setShowRtmp(type);
   };
+
+  const handleYoutubeCreateStream = useCallback(
+    async (userId: number, token: string, channelId: string) => {
+      const body = await youtubeApi.createLiveStream(userId, token, channelId);
+      if (body) {
+        setYoutubeCreateStream(body);
+      }
+    },
+    []
+  );
 
   const handleCloseRtmp = () => {
     bgRef.current.style.display = 'none';
@@ -104,7 +127,7 @@ const EventMainPage: React.FunctionComponent<EventMainPageProps> = (props) => {
     dispatch(eventActions.setStep(6));
   };
 
-  const handleDelete = (value: string) => {};
+  const handleDelete = () => {};
 
   const handleSelect = (value: string) => {};
 
@@ -128,7 +151,7 @@ const EventMainPage: React.FunctionComponent<EventMainPageProps> = (props) => {
   return (
     <>
       <div className="event-page">
-        {youtubeEvent === '0' && twitchEvent === '0' ? (
+        {!userPlatform ? (
           <div className="event__container">
             <img src={eventLogo} alt="" />
             <span className="event__title">Schedule an Event</span>
@@ -144,7 +167,7 @@ const EventMainPage: React.FunctionComponent<EventMainPageProps> = (props) => {
             handleRtmp={handleRtmp}
             handleEmbed={handleEmbed}
             handleEdit={handleEdit}
-            handleDelete={(e: string) => handleDelete(e)}
+            handleDelete={handleDelete}
           />
         )}
         {step === 1 && (
@@ -214,15 +237,15 @@ const EventMainPage: React.FunctionComponent<EventMainPageProps> = (props) => {
           />
         )}
 
-        {showRtmp && (
+        {showRtmp && youtubeCreateStream && (
           <RtmpSetting
             handleCloseRtmp={handleCloseRtmp}
-            url={'rtmp://live.stream.io/live'}
-            streamKey={
-              showRtmp === 'youtube'
-                ? 're_5993814_event19f771276589444099904cb998c04307'
-                : 're_event19f771276589444099904cb998c04307'
+            url={
+              showRtmp === 'YOUTUBE'
+                ? youtubeCreateStream.ingestionAddress
+                : 'rtmp://live.stream.io/live'
             }
+            streamKey={showRtmp === 'YOUTUBE' ? youtubeCreateStream.streamName : ''}
           />
         )}
 

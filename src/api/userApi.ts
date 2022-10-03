@@ -1,6 +1,5 @@
-import { AxiosRequestConfig } from 'axios';
 import { userDetailInformation } from 'models';
-import { userRequest } from 'models/authentication/userRequest';
+import { UserPlatform } from 'models/user/userPlatform';
 import axiosClient from './axiosClient';
 
 const userApi = {
@@ -9,6 +8,14 @@ const userApi = {
       headers: { Authorization: `Bearer ${token}`, sessionId: `${sessionId}` },
     };
     const url = `/user/user-details`;
+    return axiosClient.get(url, config);
+  },
+
+  getPlatfomUser(userId: number): Promise<UserPlatform[]> {
+    const config = {
+      headers: { userId: `${userId}` },
+    };
+    const url = `/user/platform`;
     return axiosClient.get(url, config);
   },
 };
