@@ -1,15 +1,11 @@
 import { YoutubeChannelInfo } from 'models/event/youtubeChannelInfo';
 import { YoutubeCreateStreamResponse } from 'models/event/youtubeCreateStreamResponse';
-import { HttpResponse } from 'models/http';
 import axiosClient from './axiosClient';
 
 const youtubeApi = {
-  getChannelInfo(token: string, accessToken: string): Promise<YoutubeChannelInfo> {
+  getChannelInfo(token: string, userId: number): Promise<YoutubeChannelInfo> {
     const config = {
-      headers: { Authorization: `Bearer ${token}` },
-      data: {
-        accessToken: `${accessToken}`,
-      },
+      headers: { Authorization: `Bearer ${token}`, userId: `${userId}` },
     };
     const url = `/youtube/channel-info`;
     return axiosClient.get(url, config);
@@ -18,13 +14,10 @@ const youtubeApi = {
   createLiveStream(
     userId: number,
     token: string,
-    accessToken: string
+    channelId: string
   ): Promise<YoutubeCreateStreamResponse> {
     const config = {
-      headers: { Authorization: `Bearer ${token}`, userId: `${userId}` },
-      data: {
-        accessToken: `${accessToken}`,
-      },
+      headers: { Authorization: `Bearer ${token}`, userId: `${userId}`, channelId: `${channelId}` },
     };
     const url = `/youtube/create-live-streams`;
     return axiosClient.get(url, config);

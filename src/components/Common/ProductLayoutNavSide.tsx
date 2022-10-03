@@ -32,10 +32,10 @@ export const ProductLayoutNavSide: React.FunctionComponent<ProductLayoutNavSideP
 
   const handleLogout = () => {
     if (sessionId.current && token.current) logout(token.current, sessionId.current);
-    dispatch(authActions.setIsLoggedIn(false));
-    localStorage.removeItem('isLoggedIn');
+    dispatch(authActions.setClearStateToLogout());
     localStorage.removeItem('token');
     localStorage.removeItem('sessionId');
+    navigate('/login');
   };
 
   const logout = useCallback(async (token: string, sessionId: string) => {

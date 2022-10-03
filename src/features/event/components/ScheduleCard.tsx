@@ -49,7 +49,7 @@ const ScheduleCard: React.FunctionComponent<ScheduleCardProps> = ({
       </div>
       <div className="event-card__right-side">
         <div className="event-card__action-container">
-          <button className="event-card__action" onClick={handleEmbed}>
+          {/* <button className="event-card__action" onClick={handleEmbed}>
             <EmbedIcon />
           </button>
           <button className="event-card__action" onClick={handleEdit}>
@@ -61,7 +61,7 @@ const ScheduleCard: React.FunctionComponent<ScheduleCardProps> = ({
             </button>
           ) : (
             <button className="event-card__action event-card__action--stop">Stop Event</button>
-          )}
+          )} */}
         </div>
         <div className="event-card__other-option-box">
           <Button type="primary" size="large" onClick={handleRtmp}>

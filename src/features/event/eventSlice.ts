@@ -3,6 +3,7 @@ import { CreateInformation1 } from 'models/event/createInformation1';
 import { TwitchStreamResponse } from 'models/event/twitchStreamResponse';
 import { YoutubeChannelInfo } from 'models/event/youtubeChannelInfo';
 import { YoutubeCreateStreamResponse } from 'models/event/youtubeCreateStreamResponse';
+import { UserPlatform } from 'models/user/userPlatform';
 
 export interface EventState {
   step: number;
@@ -11,6 +12,7 @@ export interface EventState {
   youtubeChannelInfo: YoutubeChannelInfo | null;
   youtubeCreateStream: YoutubeCreateStreamResponse | null;
   twitchStream: TwitchStreamResponse | null;
+  userPlatform: UserPlatform[] | null;
 }
 
 const initialState: EventState = {
@@ -20,6 +22,7 @@ const initialState: EventState = {
   youtubeChannelInfo: null,
   youtubeCreateStream: null,
   twitchStream: null,
+  userPlatform: null,
 };
 
 const eventSlice = createSlice({
@@ -44,6 +47,9 @@ const eventSlice = createSlice({
     settwitchStream(state, action) {
       state.twitchStream = action.payload;
     },
+    setUserPlatform(state, action) {
+      state.userPlatform = action.payload;
+    },
   },
   extraReducers: {},
 });
@@ -54,7 +60,7 @@ export const eventActions = eventSlice.actions;
 // Selectors
 export const selectStep = (state: any) => state.event.step;
 export const selectActiveAll = (state: any) => state.event.activeAll;
-export const selectStates = (state: any) => state.event;
+export const selectEventStates = (state: any) => state.event;
 
 // Reducer
 const eventReducer = eventSlice.reducer;

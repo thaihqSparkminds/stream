@@ -1,13 +1,16 @@
 import { CloseOutlined, LeftOutlined, YoutubeFilled } from '@ant-design/icons';
 import { Button, Divider } from 'antd';
-import { useAppDispatch } from 'app/hooks';
+import userApi from 'api/userApi';
+import { useAppDispatch, useAppSelector } from 'app/hooks';
 import twitchLogo from 'assets/images/twitch_logo.png';
 import ytbAvatar from 'assets/images/youtube_avatar.png';
 import { DatePickerField, TimePickerField } from 'components/FormFields';
+import { authActions, selectStates } from 'features/auth/authSlice';
 import { CreateInformation1 } from 'models/event/createInformation1';
-import React from 'react';
+import { UserPlatform } from 'models/user/userPlatform';
+import React, { useCallback, useEffect, useRef } from 'react';
 import { useForm } from 'react-hook-form';
-import { eventActions } from '../eventSlice';
+import { eventActions, selectEventStates } from '../eventSlice';
 import ChannelCard from './ChannelCard';
 interface CreateEventProps {
   formResult: CreateInformation1;
@@ -36,6 +39,22 @@ const CreateEvent: React.FunctionComponent<CreateEventProps> = ({
   const { control, handleSubmit } = useForm({
     defaultValues: initialValue,
   });
+  const userDetail = useAppSelector(selectStates).userDetail;
+  const userPlatform = useAppSelector(selectEventStates).userPlatform;
+
+  const getPlatfomUser = useCallback(async (userId: number) => {
+    const body = await userApi.getPlatfomUser(userId);
+    if (body) {
+      console.log(body);
+      dispatch(eventActions.setUserPlatform(body));
+    }
+  }, []);
+
+  useEffect(() => {
+    if (userDetail) {
+      getPlatfomUser(userDetail.userId);
+    }
+  }, [userDetail, getPlatfomUser]);
 
   return (
     <>
@@ -49,7 +68,9 @@ const CreateEvent: React.FunctionComponent<CreateEventProps> = ({
           <span>Choose destinations and customize stream details.</span>
         </div>
         <div className="event__list-header-box">
-          <span className="event__active-count">1 of 2 active</span>
+          <span className="event__active-count">
+            0 of {!userPlatform ? 0 : userPlatform.length} active
+          </span>
           <div className="event__toggle-options">
             <span>Toggle all</span>
             <div className="event__toggle-btn-box">
@@ -60,24 +81,23 @@ const CreateEvent: React.FunctionComponent<CreateEventProps> = ({
           </div>
         </div>
         <div className="event__list-items">
-          <ChannelCard
-            avatar={ytbAvatar}
-            miniLogoChannel={<YoutubeFilled />}
-            isPublic={true}
-            title={formResult.title}
-            name={'Thai Ho'}
-          />
-
-          <ChannelCard
-            avatar={ytbAvatar}
-            miniLogoChannel={
-              <div>
-                <img src={twitchLogo} alt="" />
-              </div>
-            }
-            title={formResult.title}
-            name={'Thai Ho'}
-          />
+          {userPlatform &&
+            userPlatform.map((e: UserPlatform) => (
+              <ChannelCard
+                avatar={e.image}
+                miniLogoChannel={
+                  e.platformType === 'YOUTUBE' ? (
+                    <YoutubeFilled />
+                  ) : (
+                    <div>
+                      <img src={twitchLogo} alt="" />
+                    </div>
+                  )
+                }
+                title={formResult.title}
+                name={e.title}
+              />
+            ))}
         </div>
         <Button className="event__create-btn" type="primary" onClick={handleAddChannel}>
           + Add Channels

@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { User } from 'models';
+import { User, userDetailInformation } from 'models';
 
 export interface AuthState {
   isLoggedIn: boolean;
@@ -7,6 +7,7 @@ export interface AuthState {
   currentUser?: User;
   isSendResetPass: boolean;
   alertFail: boolean | null;
+  userDetail: userDetailInformation | null;
 }
 
 const initialState: AuthState = {
@@ -15,6 +16,7 @@ const initialState: AuthState = {
   currentUser: undefined,
   isSendResetPass: false,
   alertFail: null,
+  userDetail: null,
 };
 
 const authSlice = createSlice({
@@ -32,6 +34,14 @@ const authSlice = createSlice({
     },
     setAlertFail(state, action) {
       state.alertFail = action.payload;
+    },
+    setUserDetail(state, action) {
+      state.userDetail = action.payload;
+    },
+    setClearStateToLogout(state) {
+      state.currentUser = undefined;
+      state.isLoggedIn = false;
+      state.userDetail = null;
     },
   },
   extraReducers: {},

@@ -1,3 +1,4 @@
+import PrivateRoute from 'PrivateRoute';
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import EventMainPage from './pages/EventMainPage';
@@ -12,4 +13,4 @@ const EventPage: React.FunctionComponent<EventPageProps> = (props) => {
   );
 };
 
-export default EventPage;
+export default PrivateRoute(EventPage);
