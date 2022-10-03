@@ -13,7 +13,7 @@ import CreateEvent from '../components/CreateEvent';
 import CreateForm1 from '../components/CreateForm1';
 import EventManage from '../components/EventManage';
 import RtmpSetting from '../components/RtmpSetting';
-import { eventActions, selectStep } from '../eventSlice';
+import { eventActions, selectStates, selectStep } from '../eventSlice';
 
 interface EventMainPageProps {}
 
@@ -27,10 +27,11 @@ const EventMainPage: React.FunctionComponent<EventMainPageProps> = (props) => {
   const bgRef = useRef<any>();
   const selectBoxRef = useRef<any>();
   const [step, setStep] = useState(0);
-  const [showRtmp, setShowRtmp] = useState(false);
+  const [showRtmp, setShowRtmp] = useState<boolean | string>(false);
   const [formResult, setFormResult] = useState(initialValue1);
   const dispatch = useAppDispatch();
   const stepState = useAppSelector(selectStep);
+  const eventStates = useAppSelector(selectStates);
   const [youtubeEvent, setYoutubeEvent] = useState(localStorage.getItem('youtube') || '0');
   const [twitchEvent, setTwitchEvent] = useState(localStorage.getItem('twitch') || '0');
 
@@ -71,7 +72,7 @@ const EventMainPage: React.FunctionComponent<EventMainPageProps> = (props) => {
   };
 
   const onCreate = (value: CreateInformation1) => {
-    localStorage.setItem('twitch', `${Number(twitchEvent) - 1}`)
+    localStorage.setItem('twitch', `${Number(twitchEvent) - 1}`);
     setStep(0);
   };
 
@@ -86,9 +87,9 @@ const EventMainPage: React.FunctionComponent<EventMainPageProps> = (props) => {
     } else setStep(step - 1);
   };
 
-  const handleRtmp = () => {
+  const handleRtmp = (value: string) => {
     bgRef.current.style.display = 'block';
-    setShowRtmp(true);
+    setShowRtmp(value);
   };
 
   const handleCloseRtmp = () => {
@@ -103,11 +104,9 @@ const EventMainPage: React.FunctionComponent<EventMainPageProps> = (props) => {
     dispatch(eventActions.setStep(6));
   };
 
-  const handleDelete = (value: string) => {
-  };
+  const handleDelete = (value: string) => {};
 
-  const handleSelect = (value: string) => {
-  };
+  const handleSelect = (value: string) => {};
 
   useEffect(() => {
     switch (step) {
@@ -219,7 +218,11 @@ const EventMainPage: React.FunctionComponent<EventMainPageProps> = (props) => {
           <RtmpSetting
             handleCloseRtmp={handleCloseRtmp}
             url={'rtmp://live.stream.io/live'}
-            streamKey={'re_5993814_event19f771276589444099904cb998c04307'}
+            streamKey={
+              showRtmp === 'youtube'
+                ? 're_5993814_event19f771276589444099904cb998c04307'
+                : 're_event19f771276589444099904cb998c04307'
+            }
           />
         )}
 

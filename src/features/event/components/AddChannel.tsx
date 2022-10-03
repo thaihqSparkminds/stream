@@ -1,4 +1,5 @@
 import { CloseOutlined, LeftOutlined } from '@ant-design/icons';
+import twitchApi from 'api/twitchApi';
 import userApi from 'api/userApi';
 import youtubeApi from 'api/youtubeApi';
 import TwitchLogo from 'components/Icons/TwitchLogo';
@@ -21,6 +22,7 @@ const AddChannel: React.FunctionComponent<AddChannelProps> = ({
 }) => {
   const onSuccess = (response: any) => console.log(response);
   const onFailure = (response: any) => console.error(response);
+
   const token = useRef(localStorage.getItem('token'));
   const sessionId = useRef(localStorage.getItem('sessionId'));
   const [userDetail, setUserDetail] = useState<userDetailInformation>();
@@ -39,7 +41,7 @@ const AddChannel: React.FunctionComponent<AddChannelProps> = ({
       const body = await youtubeApi.getLinkOAuth(userId, token.current);
       if (body) {
         console.log(body);
-        window.open(body, '_blank', 'toolbar=0,status=0,width=548,height=900');
+        window.open(body, '__blank', 'toolbar=0,status=0,width=548,height=900');
       }
     }
   }, []);
@@ -70,7 +72,7 @@ const AddChannel: React.FunctionComponent<AddChannelProps> = ({
         </div>
 
         <div className="event__list-channel">
-          <OAuth2
+          {/* <OAuth2
             authorizationUrl="https://accounts.google.com/o/oauth2/auth"
             responseType="code"
             clientId="546074177988-npckfotj7ng93uiq3qbrs0okupkgok6p.apps.googleusercontent.com"
@@ -80,13 +82,13 @@ const AddChannel: React.FunctionComponent<AddChannelProps> = ({
             onFailure={onFailure}
             className={'event__channel'}
             isCrossOrigin={true}
-          >
-            <ChannelItem
-              onClick={() => handleClick('youtube')}
-              logo={<YoutubeLogo />}
-              name={'YouTube'}
-            />
-          </OAuth2>
+          > */}
+          <ChannelItem
+            onClick={() => handleClick('youtube')}
+            logo={<YoutubeLogo />}
+            name={'YouTube'}
+          />
+          {/* </OAuth2> */}
 
           <OAuth2
             // authorizationUrl="https://id.twitch.tv/oauth2/authorize?response_type=code&client_id=rk0qllr0498x2byb2twcy3u1mnubb3&redirect_uri=http://localhost:8000/oauth_twitch&force_verify=true&scope=channel:read:stream_key&user:edit:broadcast&state=,1"
@@ -98,7 +100,7 @@ const AddChannel: React.FunctionComponent<AddChannelProps> = ({
             onSuccess={onSuccess}
             onFailure={onFailure}
             className={'event__channel'}
-            isCrossOrigin={true}
+            isCrossOrigin={false}
           >
             <ChannelItem
               onClick={() => handleClick('twitch')}

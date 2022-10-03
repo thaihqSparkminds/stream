@@ -1,14 +1,17 @@
-import { DownOutlined, UpOutlined } from '@ant-design/icons';
+import { DownOutlined, UpOutlined, YoutubeFilled } from '@ant-design/icons';
 import { Button } from 'antd';
+import { useAppSelector } from 'app/hooks';
 import ytbAvatar from 'assets/images/youtube_avatar.png';
+import twitchLogo from 'assets/images/twitch_logo.png';
 import { CreateInformation1 } from 'models/event/createInformation1';
 import React, { useRef, useState } from 'react';
+import { selectStates } from '../eventSlice';
 import ScheduleCard from './ScheduleCard';
 
 interface EventManageProps {
   handleCreate: () => void;
   formResult: CreateInformation1;
-  handleRtmp: () => void;
+  handleRtmp: (e: string) => void;
   handleEmbed: () => void;
   handleEdit: () => void;
   handleDelete: (e: string) => void;
@@ -23,13 +26,12 @@ const EventManage: React.FunctionComponent<EventManageProps> = ({
   handleDelete,
 }) => {
   const [dropdown, setDropdown] = useState(true);
-  const youtubeNum = useRef(Number(localStorage.getItem('youtube')));
-  const twitchNum = useRef(Number(localStorage.getItem('twitch')));
   // const [youtubeEvent, setYoutubeEvent] = useState(localStorage.getItem('youtube') || '0');
   // const [twitchEvent, setTwitchEvent] = useState(localStorage.getItem('twitch') || '0');
   const handleDropdown = () => {
     setDropdown(!dropdown);
   };
+
   return (
     <div className="event__main">
       <div className="event__header">
@@ -39,23 +41,29 @@ const EventManage: React.FunctionComponent<EventManageProps> = ({
         </Button>
       </div>
 
-        <ScheduleCard
-          avatar={ytbAvatar}
-          formResult={formResult}
-          handleEmbed={handleEmbed}
-          handleEdit={handleEdit}
-          handleDelete={() => handleDelete('youtube')}
-          handleRtmp={handleRtmp}
-          live
-        />
-        <ScheduleCard
-          avatar={ytbAvatar}
-          formResult={formResult}
-          handleEmbed={handleEmbed}
-          handleEdit={handleEdit}
-          handleDelete={() => handleDelete('twitch')}
-          handleRtmp={handleRtmp}
-        />
+      <ScheduleCard
+        avatar={ytbAvatar}
+        logo={<YoutubeFilled />}
+        formResult={formResult}
+        handleEmbed={handleEmbed}
+        handleEdit={handleEdit}
+        handleDelete={() => handleDelete('youtube')}
+        handleRtmp={() => handleRtmp('youtube')}
+        live
+      />
+      <ScheduleCard
+        logo={
+          <div>
+            <img src={twitchLogo} alt="" />
+          </div>
+        }
+        avatar={ytbAvatar}
+        formResult={formResult}
+        handleEmbed={handleEmbed}
+        handleEdit={handleEdit}
+        handleDelete={() => handleDelete('twitch')}
+        handleRtmp={() => handleRtmp('twitch')}
+      />
 
       <p className="event__past-title" onClick={handleDropdown}>
         <span>Past Events</span>

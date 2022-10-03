@@ -1,4 +1,4 @@
-import { LoginInformation, SignupInformation } from 'models';
+import { ForgotInformation, LoginInformation, SignupInformation } from 'models';
 import { LoginResponse } from 'models/authentication/loginResponse';
 import { SignupResponse } from 'models/authentication/signupResponse';
 import axiosClient from './axiosClient';
@@ -19,6 +19,11 @@ const authApi = {
 
   signup(body: SignupInformation): Promise<SignupResponse> {
     const url = `/auth/signup`;
+    return axiosClient.post(url, body);
+  },
+
+  resetPassword(body: ForgotInformation): Promise<any> {
+    const url = `/auth/reset-password`;
     return axiosClient.post(url, body);
   },
 };

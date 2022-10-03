@@ -1,6 +1,7 @@
 import { CloseOutlined, LeftOutlined, YoutubeFilled } from '@ant-design/icons';
 import { Button, Divider } from 'antd';
 import { useAppDispatch } from 'app/hooks';
+import twitchLogo from 'assets/images/twitch_logo.png';
 import ytbAvatar from 'assets/images/youtube_avatar.png';
 import { DatePickerField, TimePickerField } from 'components/FormFields';
 import { CreateInformation1 } from 'models/event/createInformation1';
@@ -66,11 +67,14 @@ const CreateEvent: React.FunctionComponent<CreateEventProps> = ({
             title={formResult.title}
             name={'Thai Ho'}
           />
-          
+
           <ChannelCard
             avatar={ytbAvatar}
-            miniLogoChannel={<YoutubeFilled />}
-            isPublic={true}
+            miniLogoChannel={
+              <div>
+                <img src={twitchLogo} alt="" />
+              </div>
+            }
             title={formResult.title}
             name={'Thai Ho'}
           />
