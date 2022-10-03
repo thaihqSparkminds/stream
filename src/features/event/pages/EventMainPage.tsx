@@ -48,18 +48,21 @@ const EventMainPage: React.FunctionComponent<EventMainPageProps> = (props) => {
         dispatch(authActions.setUserDetail(body));
       }
     }
-  }, []);
+  }, [dispatch]);
 
-  const getPlatfomUser = useCallback(async (userId: number) => {
-    const body = await userApi.getPlatfomUser(userId);
-    if (body) {
-      dispatch(eventActions.setUserPlatform(body));
-    }
-  }, []);
+  const getPlatfomUser = useCallback(
+    async (userId: number) => {
+      const body = await userApi.getPlatfomUser(userId);
+      if (body) {
+        dispatch(eventActions.setUserPlatform(body));
+      }
+    },
+    [dispatch]
+  );
 
   useEffect(() => {
     getUserDetail();
-  }, []);
+  }, [getUserDetail]);
 
   useEffect(() => {
     if (userDetail) {

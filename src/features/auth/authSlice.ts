@@ -38,6 +38,11 @@ const authSlice = createSlice({
     setUserDetail(state, action) {
       state.userDetail = action.payload;
     },
+    setClearStateToLogout(state) {
+      state.currentUser = undefined;
+      state.isLoggedIn = false;
+      state.userDetail = null;
+    },
   },
   extraReducers: {},
 });
